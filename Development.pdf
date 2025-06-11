@@ -1,0 +1,39 @@
+Goal: The agent’s main goal is to drive a racecar on different tracks while avoiding obstacles and staying on the track. It makes decisions based on:
+•	5 LIDAR sensor data (distance to obstacles).
+•	The car’s speed.
+
+Sensors and Track Data:
+•	The LIDAR sensors detect obstacles around the car. There are five sensors: left, front-left, front, front-right, and right. These sensors tell the car how far away obstacles are.
+•	The velocity is the car's speed. It helps the agent decide whether it should speed up or slow down.
+•	The position of the car helps the agent know how far the car is from the center of the track. This helps keep the car in the middle of the track.
+
+Agent’s Working:
+•	Emergency Recovery: If the LIDAR sensors show no obstacles (all values are infinity), the agent will keep driving straight and accelerate.
+•	Low Speed Boost: If the car is moving too slow, it will speed up.
+•	Obstacle Avoidance: The agent uses LIDAR data to avoid obstacles. If an obstacle is too close, the agent will brake and turn away from it.
+•	Track Centering: If the car is too far from the center of the track, it will steer toward the side with more space to get back on track.
+•	General Obstacle Avoidance: If the front LIDAR sensor detects an obstacle, the agent will decide whether to brake or coast based on how far away the obstacle is.
+•	Adjusting Speed for Turns: The agent adjusts its speed based on whether it is in a turn or going straight. It slows down when making sharp turns and speeds up when going straight.
+Decisions:
+•	Braking: If the agent detects an obstacle too close, it will brake.
+•	Acceleration: The agent accelerates if the car is too slow, and steers based on the sensor readings to avoid obstacles and stay on track.
+
+Threshold Limits:
+•	proximity_limit = 0.2: If the agent detects an obstacle this close, it will brake.
+•	front_limit = 0.8: The car will avoid obstacles in front if they are closer than 0.8 units.
+•	side_limit = 1.4: The car starts steering away from obstacles on the sides if they are closer than 1.4 units.
+•	vel_boost = 0.05: If the car is going very slow, it will speed up.
+•	vel_straight = 0.9: The target speed for going straight.
+•	vel_turn = 0.2: The speed limit for turns.
+
+Challenges:
+•	Turns are tricky because the car needs to slow down to make sharp turns. The agent adjusts its speed when it detects a tight turn.
+•	The agent uses the LIDAR sensors to check for obstacles. If something is too close, it will brake and steer away to avoid a collision.
+
+Testing:
+The agent was tested on 8 different types of tracks with obstacles. It was able to navigate the tracks by adjusting its speed and steering to avoid obstacles and stay on track.
+
+Performance:
+•	On straight paths, the car speeds up and keeps a steady pace.
+•	On turns, the agent adjusts the speed and steering to avoid obstacles and stay on course.
+
